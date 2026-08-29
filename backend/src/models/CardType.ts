@@ -6,19 +6,21 @@ export interface CardTypeAttributes {
   name: string;
   durationDays: number;
   price: number;
+  storeId: number | null;
   status: number;
   benefitsDesc: string | null;
   createdAt?: Date;
   updatedAt?: Date;
 }
 
-export interface CardTypeCreationAttributes extends Optional<CardTypeAttributes, 'id' | 'benefitsDesc' | 'status'> {}
+export interface CardTypeCreationAttributes extends Optional<CardTypeAttributes, 'id' | 'storeId' | 'benefitsDesc' | 'status'> {}
 
 class CardType extends Model<CardTypeAttributes, CardTypeCreationAttributes> implements CardTypeAttributes {
   declare public id: number;
   declare public name: string;
   declare public durationDays: number;
   declare public price: number;
+  declare public storeId: number | null;
   declare public status: number;
   declare public benefitsDesc: string | null;
   declare public readonly createdAt: Date;
@@ -31,6 +33,7 @@ CardType.init(
     name: { type: DataTypes.STRING(50), allowNull: false },
     durationDays: { type: DataTypes.INTEGER, allowNull: false },
     price: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
+    storeId: { type: DataTypes.BIGINT, allowNull: true },
     status: { type: DataTypes.TINYINT, defaultValue: 1 },
     benefitsDesc: { type: DataTypes.TEXT, allowNull: true },
   },
