@@ -16,13 +16,13 @@ export interface PointsRecordAttributes {
 export interface PointsRecordCreationAttributes extends Optional<PointsRecordAttributes, 'id' | 'orderId'> {}
 
 class PointsRecord extends Model<PointsRecordAttributes, PointsRecordCreationAttributes> implements PointsRecordAttributes {
-  public id!: number;
-  public memberId!: number;
-  public type!: PointsRecordType;
-  public points!: number;
-  public orderId!: number | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public type: PointsRecordType;
+  declare public points: number;
+  declare public orderId: number | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 PointsRecord.init(

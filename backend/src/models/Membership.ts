@@ -18,15 +18,15 @@ export interface MembershipAttributes {
 export interface MembershipCreationAttributes extends Optional<MembershipAttributes, 'id' | 'status'> {}
 
 class Membership extends Model<MembershipAttributes, MembershipCreationAttributes> implements MembershipAttributes {
-  public id!: number;
-  public memberId!: number;
-  public cardTypeId!: number;
-  public storeId!: number;
-  public startDate!: string;
-  public endDate!: string;
-  public status!: MembershipStatus;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public cardTypeId: number;
+  declare public storeId: number;
+  declare public startDate: string;
+  declare public endDate: string;
+  declare public status: MembershipStatus;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Membership.init(

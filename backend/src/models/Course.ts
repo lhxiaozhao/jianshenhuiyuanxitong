@@ -22,18 +22,18 @@ export interface CourseAttributes {
 export interface CourseCreationAttributes extends Optional<CourseAttributes, 'id' | 'capacity' | 'price' | 'status'> {}
 
 class Course extends Model<CourseAttributes, CourseCreationAttributes> implements CourseAttributes {
-  public id!: number;
-  public name!: string;
-  public type!: CourseType;
-  public trainerId!: number;
-  public storeId!: number;
-  public durationMinutes!: number;
-  public capacity!: number | null;
-  public startTime!: Date;
-  public price!: number | null;
-  public status!: CourseStatus;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public name: string;
+  declare public type: CourseType;
+  declare public trainerId: number;
+  declare public storeId: number;
+  declare public durationMinutes: number;
+  declare public capacity: number | null;
+  declare public startTime: Date;
+  declare public price: number | null;
+  declare public status: CourseStatus;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Course.init(

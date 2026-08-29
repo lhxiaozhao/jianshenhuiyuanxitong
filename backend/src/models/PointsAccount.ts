@@ -12,11 +12,11 @@ export interface PointsAccountAttributes {
 export interface PointsAccountCreationAttributes extends Optional<PointsAccountAttributes, 'id' | 'balance'> {}
 
 class PointsAccount extends Model<PointsAccountAttributes, PointsAccountCreationAttributes> implements PointsAccountAttributes {
-  public id!: number;
-  public memberId!: number;
-  public balance!: number;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public balance: number;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 PointsAccount.init(

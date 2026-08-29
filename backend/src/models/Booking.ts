@@ -17,14 +17,14 @@ export interface BookingAttributes {
 export interface BookingCreationAttributes extends Optional<BookingAttributes, 'id' | 'status' | 'cancelledAt'> {}
 
 class Booking extends Model<BookingAttributes, BookingCreationAttributes> implements BookingAttributes {
-  public id!: number;
-  public memberId!: number;
-  public courseId!: number;
-  public status!: BookingStatus;
-  public bookedAt!: Date;
-  public cancelledAt!: Date | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public courseId: number;
+  declare public status: BookingStatus;
+  declare public bookedAt: Date;
+  declare public cancelledAt: Date | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Booking.init(

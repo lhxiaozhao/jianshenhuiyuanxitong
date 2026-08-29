@@ -15,14 +15,14 @@ export interface CardTypeAttributes {
 export interface CardTypeCreationAttributes extends Optional<CardTypeAttributes, 'id' | 'benefitsDesc' | 'status'> {}
 
 class CardType extends Model<CardTypeAttributes, CardTypeCreationAttributes> implements CardTypeAttributes {
-  public id!: number;
-  public name!: string;
-  public durationDays!: number;
-  public price!: number;
-  public status!: number;
-  public benefitsDesc!: string | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public name: string;
+  declare public durationDays: number;
+  declare public price: number;
+  declare public status: number;
+  declare public benefitsDesc: string | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 CardType.init(

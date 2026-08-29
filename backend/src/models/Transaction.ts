@@ -17,14 +17,14 @@ export interface TransactionAttributes {
 export interface TransactionCreationAttributes extends Optional<TransactionAttributes, 'id' | 'orderId'> {}
 
 class Transaction extends Model<TransactionAttributes, TransactionCreationAttributes> implements TransactionAttributes {
-  public id!: number;
-  public memberId!: number;
-  public walletId!: number;
-  public type!: TransactionType;
-  public amount!: number;
-  public orderId!: number | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public walletId: number;
+  declare public type: TransactionType;
+  declare public amount: number;
+  declare public orderId: number | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Transaction.init(

@@ -16,13 +16,13 @@ export interface BenefitAttributes {
 export interface BenefitCreationAttributes extends Optional<BenefitAttributes, 'id' | 'status'> {}
 
 class Benefit extends Model<BenefitAttributes, BenefitCreationAttributes> implements BenefitAttributes {
-  public id!: number;
-  public name!: string;
-  public pointsCost!: number;
-  public type!: BenefitType;
-  public status!: number;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public name: string;
+  declare public pointsCost: number;
+  declare public type: BenefitType;
+  declare public status: number;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Benefit.init(

@@ -13,12 +13,12 @@ export interface OperationLogAttributes {
 export interface OperationLogCreationAttributes extends Optional<OperationLogAttributes, 'id' | 'userId' | 'detail'> {}
 
 class OperationLog extends Model<OperationLogAttributes, OperationLogCreationAttributes> implements OperationLogAttributes {
-  public id!: number;
-  public userId!: number | null;
-  public action!: string;
-  public detail!: string | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public userId: number | null;
+  declare public action: string;
+  declare public detail: string | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 OperationLog.init(

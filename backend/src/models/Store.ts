@@ -15,14 +15,14 @@ export interface StoreAttributes {
 export interface StoreCreationAttributes extends Optional<StoreAttributes, 'id' | 'address' | 'phone' | 'businessHours' | 'status'> {}
 
 class Store extends Model<StoreAttributes, StoreCreationAttributes> implements StoreAttributes {
-  public id!: number;
-  public name!: string;
-  public address!: string | null;
-  public phone!: string | null;
-  public businessHours!: string | null;
-  public status!: number;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public name: string;
+  declare public address: string | null;
+  declare public phone: string | null;
+  declare public businessHours: string | null;
+  declare public status: number;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Store.init(

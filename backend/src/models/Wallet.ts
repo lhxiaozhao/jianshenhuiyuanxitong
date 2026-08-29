@@ -12,11 +12,11 @@ export interface WalletAttributes {
 export interface WalletCreationAttributes extends Optional<WalletAttributes, 'id' | 'balance'> {}
 
 class Wallet extends Model<WalletAttributes, WalletCreationAttributes> implements WalletAttributes {
-  public id!: number;
-  public memberId!: number;
-  public balance!: number;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public balance: number;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Wallet.init(

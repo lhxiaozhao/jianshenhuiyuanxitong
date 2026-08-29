@@ -20,17 +20,17 @@ export interface UserAttributes {
 export interface UserCreationAttributes extends Optional<UserAttributes, 'id' | 'storeId' | 'status' | 'failedAttempts' | 'lockedUntil'> {}
 
 class User extends Model<UserAttributes, UserCreationAttributes> implements UserAttributes {
-  public id!: number;
-  public username!: string;
-  public passwordHash!: string;
-  public name!: string;
-  public role!: UserRole;
-  public storeId!: number | null;
-  public status!: number;
-  public failedAttempts!: number;
-  public lockedUntil!: Date | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public username: string;
+  declare public passwordHash: string;
+  declare public name: string;
+  declare public role: UserRole;
+  declare public storeId: number | null;
+  declare public status: number;
+  declare public failedAttempts: number;
+  declare public lockedUntil: Date | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 User.init(

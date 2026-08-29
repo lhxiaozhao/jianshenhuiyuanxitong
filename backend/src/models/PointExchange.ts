@@ -16,13 +16,13 @@ export interface PointExchangeAttributes {
 export interface PointExchangeCreationAttributes extends Optional<PointExchangeAttributes, 'id' | 'status'> {}
 
 class PointExchange extends Model<PointExchangeAttributes, PointExchangeCreationAttributes> implements PointExchangeAttributes {
-  public id!: number;
-  public memberId!: number;
-  public benefitId!: number;
-  public pointsCost!: number;
-  public status!: ExchangeStatus;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public memberId: number;
+  declare public benefitId: number;
+  declare public pointsCost: number;
+  declare public status: ExchangeStatus;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 PointExchange.init(

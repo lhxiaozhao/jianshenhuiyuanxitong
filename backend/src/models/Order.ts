@@ -21,16 +21,16 @@ export interface OrderAttributes {
 export interface OrderCreationAttributes extends Optional<OrderAttributes, 'id' | 'payMethod' | 'status' | 'storeId'> {}
 
 class Order extends Model<OrderAttributes, OrderCreationAttributes> implements OrderAttributes {
-  public id!: number;
-  public orderNo!: string;
-  public memberId!: number;
-  public type!: OrderType;
-  public amount!: number;
-  public payMethod!: PayMethod | null;
-  public status!: OrderStatus;
-  public storeId!: number | null;
-  public readonly createdAt!: Date;
-  public readonly updatedAt!: Date;
+  declare public id: number;
+  declare public orderNo: string;
+  declare public memberId: number;
+  declare public type: OrderType;
+  declare public amount: number;
+  declare public payMethod: PayMethod | null;
+  declare public status: OrderStatus;
+  declare public storeId: number | null;
+  declare public readonly createdAt: Date;
+  declare public readonly updatedAt: Date;
 }
 
 Order.init(
