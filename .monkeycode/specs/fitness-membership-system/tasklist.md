@@ -6,15 +6,15 @@
    - 设置后端测试框架（Vitest + Supertest）与前端测试框架
    - 配置 Vite 开发服务器反代 /api → 后端，allowedHosts 加入 .monkeycode-ai.online
 
-- [ ] 2. 实现后端数据模型与数据库层
-  - [ ] 2.1 配置 Sequelize 连接 MySQL 与迁移脚本
+- [x] 2. 实现后端数据模型与数据库层
+  - [x] 2.1 配置 Sequelize 连接 MySQL 与迁移脚本
      - 数据库连接池、时区、日志配置
      - 初始化脚本创建数据库与全部表（需求2/3/4/5/6）
-  - [ ] 2.2 定义核心业务模型（stores, users, members, memberships, card_types）
+  - [x] 2.2 定义核心业务模型（stores, users, members, memberships, card_types）
      - 对应 design.md 数据模型字段与关联关系（需求1/2/6）
-  - [ ] 2.3 定义交易模型（orders, wallets, transactions, courses, bookings）
+  - [x] 2.3 定义交易模型（orders, wallets, transactions, courses, bookings）
      - 对应设计文档字段与关联关系（需求3/4）
-  - [ ] 2.4 定义积分与日志模型（points_accounts, points_records, benefits, point_exchanges, operation_logs）
+  - [x] 2.4 定义积分与日志模型（points_accounts, points_records, benefits, point_exchanges, operation_logs）
      - 对应设计文档字段与关联关系（需求5/7）
   - [ ]* 2.5 编写模型关联与完整性单元测试
      - 验证外键关系、唯一约束、枚举约束
