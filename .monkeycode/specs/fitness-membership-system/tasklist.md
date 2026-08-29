@@ -1,6 +1,6 @@
 # 需求实施计划
 
-- [ ] 1. 搭建项目结构与基础设施
+- [x] 1. 搭建项目结构与基础设施
    - 创建 backend/（Express + TS）与 frontend/（Vue3 + Vite + TS）目录结构
    - 配置 ESLint、TypeScript 编译、环境变量
    - 设置后端测试框架（Vitest + Supertest）与前端测试框架
