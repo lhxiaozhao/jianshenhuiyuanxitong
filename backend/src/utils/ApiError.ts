@@ -18,8 +18,8 @@ export class ApiError extends Error {
     return new ApiError(401, 'UNAUTHORIZED', message);
   }
 
-  static forbidden(message = '权限不足'): ApiError {
-    return new ApiError(403, 'FORBIDDEN', message);
+  static forbidden(message = '权限不足', code = 'FORBIDDEN'): ApiError {
+    return new ApiError(403, code, message);
   }
 
   static notFound(message = '资源不存在'): ApiError {

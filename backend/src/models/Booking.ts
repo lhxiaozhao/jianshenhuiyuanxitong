@@ -1,5 +1,7 @@
 import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../config/database';
+import type Course from './Course';
+import type Member from './Member';
 
 export type BookingStatus = 'booked' | 'completed' | 'cancelled' | 'waiting';
 
@@ -25,6 +27,8 @@ class Booking extends Model<BookingAttributes, BookingCreationAttributes> implem
   declare public cancelledAt: Date | null;
   declare public readonly createdAt: Date;
   declare public readonly updatedAt: Date;
+  declare public course?: Course;
+  declare public member?: Member;
 }
 
 Booking.init(

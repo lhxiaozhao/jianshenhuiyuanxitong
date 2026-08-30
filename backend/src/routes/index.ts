@@ -4,6 +4,8 @@ import storeRoutes from './store';
 import memberRoutes from './member';
 import cardTypeRoutes from './cardType';
 import membershipRoutes from './membership';
+import courseRoutes from './course';
+import bookingRoutes from './booking';
 
 const router = Router();
 
@@ -15,6 +17,8 @@ router.use('/auth', authRoutes);
 router.use('/stores', storeRoutes);
 router.use('/members', memberRoutes);
 router.use('/card-types', cardTypeRoutes);
+router.use('/courses', courseRoutes);
+router.use('/bookings', bookingRoutes);
 router.use(membershipRoutes);
 
 export default router;
