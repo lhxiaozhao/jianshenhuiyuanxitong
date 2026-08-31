@@ -2,7 +2,7 @@ import { DataTypes, Model, Optional } from 'sequelize';
 import { sequelize } from '../config/database';
 
 export type OrderType = 'recharge' | 'card' | 'course';
-export type PayMethod = 'cash' | 'wechat' | 'alipay';
+export type PayMethod = 'cash' | 'wechat' | 'alipay' | 'balance';
 export type OrderStatus = 'pending' | 'paid' | 'cancelled';
 
 export interface OrderAttributes {
@@ -40,7 +40,7 @@ Order.init(
     memberId: { type: DataTypes.BIGINT, allowNull: false },
     type: { type: DataTypes.ENUM('recharge', 'card', 'course'), allowNull: false },
     amount: { type: DataTypes.DECIMAL(10, 2), allowNull: false },
-    payMethod: { type: DataTypes.ENUM('cash', 'wechat', 'alipay'), allowNull: true },
+    payMethod: { type: DataTypes.ENUM('cash', 'wechat', 'alipay', 'balance'), allowNull: true },
     status: { type: DataTypes.ENUM('pending', 'paid', 'cancelled'), defaultValue: 'pending' },
     storeId: { type: DataTypes.BIGINT, allowNull: true },
   },
