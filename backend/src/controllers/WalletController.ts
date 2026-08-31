@@ -1,11 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { Member, Wallet, Transaction, Order, PointsAccount, PointsRecord, sequelize } from '../models';
+import { Member, Wallet, Transaction, Order, PointsAccount, sequelize } from '../models';
 import { ApiError } from '../utils/ApiError';
 import { writeOperationLog } from '../middlewares/operationLog';
+import { earnPoints, recoverPoints } from '../services/PointsService';
 import { Op } from 'sequelize';
 import type { WhereOptions } from 'sequelize';
-
-const POINTS_PER_YUAN = 1;
 
 async function ensureWallet(memberId: number, transaction?: unknown): Promise<Wallet> {
   let wallet = await Wallet.findOne({ where: { memberId }, transaction: transaction as never });
@@ -13,14 +12,6 @@ async function ensureWallet(memberId: number, transaction?: unknown): Promise<Wa
     wallet = await Wallet.create({ memberId, balance: 0 }, { transaction: transaction as never });
   }
   return wallet;
-}
-
-async function ensurePointsAccount(memberId: number, transaction?: unknown): Promise<PointsAccount> {
-  let account = await PointsAccount.findOne({ where: { memberId }, transaction: transaction as never });
-  if (!account) {
-    account = await PointsAccount.create({ memberId, balance: 0 }, { transaction: transaction as never });
-  }
-  return account;
 }
 
 function assertMemberSelf(req: Request, memberId: number): void {
@@ -38,8 +29,8 @@ export async function getWallet(req: Request, res: Response, next: NextFunction)
       throw ApiError.notFound('会员不存在');
     }
     const wallet = await ensureWallet(member.id);
-    const pointsAccount = await ensurePointsAccount(member.id);
-    res.json({ balance: Number(wallet.balance), points: pointsAccount.balance });
+    const pointsAccount = await PointsAccount.findOne({ where: { memberId: member.id } });
+    res.json({ balance: Number(wallet.balance), points: pointsAccount ? Number(pointsAccount.balance) : 0 });
   } catch (err) {
     next(err);
   }
@@ -128,19 +119,7 @@ export async function pay(req: Request, res: Response, next: NextFunction): Prom
       { transaction }
     );
 
-    const earned = Math.floor(amountNum) * POINTS_PER_YUAN;
-    if (earned > 0) {
-      const pointsAccount = await ensurePointsAccount(member.id, transaction);
-      const lockedPoints = await PointsAccount.findByPk(pointsAccount.id, { lock: transaction.LOCK.UPDATE, transaction });
-      if (lockedPoints) {
-        const newPoints = Number(lockedPoints.balance) + earned;
-        await lockedPoints.update({ balance: newPoints }, { transaction });
-        await PointsRecord.create(
-          { memberId: member.id, type: 'earn', points: earned, orderId: order.id },
-          { transaction }
-        );
-      }
-    }
+    const earned = await earnPoints(member.id, order.id, amountNum, transaction);
 
     await transaction.commit();
     await writeOperationLog(req.user, '余额消费', `会员 ${member.memberNo} 消费 ${amountNum} 元${description ? ` (${description})` : ''}`);
@@ -194,23 +173,11 @@ export async function refund(req: Request, res: Response, next: NextFunction): P
       { transaction }
     );
 
-    const earned = Math.floor(refundAmount) * POINTS_PER_YUAN;
-    if (earned > 0) {
-      const pointsAccount = await ensurePointsAccount(member.id, transaction);
-      const lockedPoints = await PointsAccount.findByPk(pointsAccount.id, { lock: transaction.LOCK.UPDATE, transaction });
-      if (lockedPoints) {
-        const newPoints = Math.max(Number(lockedPoints.balance) - earned, 0);
-        await lockedPoints.update({ balance: newPoints }, { transaction });
-        await PointsRecord.create(
-          { memberId: member.id, type: 'spend', points: -earned, orderId: consumeTx.orderId },
-          { transaction }
-        );
-      }
-    }
+    const recovered = await recoverPoints(member.id, consumeTx.orderId, refundAmount, transaction);
 
     await transaction.commit();
     await writeOperationLog(req.user, '退款', `会员 ${member.memberNo} 退款 ${refundAmount} 元`);
-    res.json({ refundAmount, balance: newBalance });
+    res.json({ refundAmount, balance: newBalance, pointsRecovered: recovered });
   } catch (err) {
     await transaction.rollback();
     next(err);

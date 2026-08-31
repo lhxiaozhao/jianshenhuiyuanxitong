@@ -15,6 +15,7 @@ import PointsRecord from './PointsRecord';
 import Benefit from './Benefit';
 import PointExchange from './PointExchange';
 import OperationLog from './OperationLog';
+import SystemConfig from './SystemConfig';
 
 Store.hasMany(Member, { foreignKey: 'storeId', as: 'members' });
 Store.hasMany(User, { foreignKey: 'storeId', as: 'users' });
@@ -81,6 +82,7 @@ export {
   Benefit,
   PointExchange,
   OperationLog,
+  SystemConfig,
 };
 
 export async function initModels(): Promise<void> {
