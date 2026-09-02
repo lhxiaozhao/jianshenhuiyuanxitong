@@ -9,6 +9,7 @@ import bookingRoutes from './booking';
 import walletRoutes from './wallet';
 import pointsRoutes from './points';
 import benefitRoutes from './benefit';
+import userRoutes from './user';
 
 const router = Router();
 
@@ -25,6 +26,7 @@ router.use('/bookings', bookingRoutes);
 router.use('/wallets', walletRoutes);
 router.use('/points', pointsRoutes);
 router.use('/benefits', benefitRoutes);
+router.use('/users', userRoutes);
 router.use(membershipRoutes);
 
 export default router;
