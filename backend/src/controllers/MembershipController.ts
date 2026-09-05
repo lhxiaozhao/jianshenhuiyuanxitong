@@ -28,7 +28,10 @@ export async function expireOverdueMemberships(): Promise<number> {
 export async function listMemberships(req: Request, res: Response, next: NextFunction): Promise<void> {
   try {
     await expireOverdueMemberships();
-    const memberId = req.params.id;
+    const memberId = Number(req.params.id);
+    if (req.user!.role === 'member' && req.user!.id !== memberId) {
+      throw ApiError.forbidden('只能查看自己的会籍');
+    }
     const memberships = await Membership.findAll({
       where: { memberId },
       include: [{ association: 'cardType' }],

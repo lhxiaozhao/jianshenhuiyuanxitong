@@ -63,17 +63,17 @@ const auth = useAuthStore();
 const allMenus = [
   { path: '/dashboard', title: '工作台', icon: 'Odometer' },
   { path: '/stores', title: '门店管理', icon: 'OfficeBuilding', roles: ['admin'] },
-  { path: '/members', title: '会员管理', icon: 'User' },
+  { path: '/members', title: '会员管理', icon: 'User', roles: ['admin', 'frontdesk'] },
   { path: '/card-types', title: '卡类型', icon: 'CreditCard', roles: ['admin', 'frontdesk'] },
   { path: '/courses', title: '课程管理', icon: 'Basketball', roles: ['admin', 'frontdesk', 'trainer'] },
-  { path: '/bookings', title: '预约管理', icon: 'Calendar' },
+  { path: '/bookings', title: '预约管理', icon: 'Calendar', roles: ['admin', 'frontdesk', 'trainer', 'member'] },
   { path: '/wallets', title: '钱包与账单', icon: 'Wallet', roles: ['admin', 'frontdesk', 'member'] },
   { path: '/points', title: '积分明细', icon: 'Medal', roles: ['admin', 'frontdesk', 'member'] },
   { path: '/benefits', title: '权益管理', icon: 'Present', roles: ['admin', 'frontdesk'] },
 ];
 
 const menuItems = computed(() => {
-  const role = auth.user?.role;
+  const role = auth.user?.role ?? '';
   if (role === 'admin') {
     return allMenus;
   }
@@ -87,14 +87,15 @@ const roleText = computed(() => {
   return map[auth.user?.role ?? ''] || auth.user?.role || '';
 });
 
-async function handleLogout(): Promise<void> {
-  try {
-    await ElMessageBox.confirm('确定要退出登录吗？', '提示', { type: 'warning' });
-    auth.logout();
-    router.push('/login');
-  } catch {
-    // 用户取消
-  }
+function handleLogout(): void {
+  ElMessageBox.confirm('确定要退出登录吗？', '提示', { type: 'warning' })
+    .then(() => {
+      auth.logout();
+      void router.push('/login');
+    })
+    .catch(() => {
+      // 用户取消
+    });
 }
 </script>
 

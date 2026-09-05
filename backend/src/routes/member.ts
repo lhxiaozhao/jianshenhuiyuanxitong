@@ -8,7 +8,7 @@ const router = Router();
 
 router.get('/', authenticate, requireRole('admin', 'frontdesk'), listMembers);
 router.get('/:id', authenticate, requireRole('admin', 'frontdesk'), getMember);
-router.get('/:id/memberships', authenticate, requireRole('admin', 'frontdesk'), listMemberships);
+router.get('/:id/memberships', authenticate, requireRole('admin', 'frontdesk', 'member'), listMemberships);
 router.post('/', authenticate, requireRole('admin', 'frontdesk'), createMember);
 router.post('/:id/cards', authenticate, requireRole('admin', 'frontdesk'), purchaseCard);
 router.put('/:id', authenticate, requireRole('admin', 'frontdesk'), updateMember);
